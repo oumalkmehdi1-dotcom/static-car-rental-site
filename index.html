@@ -1,349 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Car Rental Maroc — Vitrine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location de Voitures Maroc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-  <style>
-    :root{
-      --bg:#0b1220;
-      --card:#101b33;
-      --text:#e9efff;
-      --muted:#a7b6d6;
-      --brand:#1b4dff;
-      --stroke: rgba(255,255,255,.12);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --r:18px;
-      --max:1050px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1100px 600px at 20% -10%, rgba(27,77,255,.35), transparent 60%),
-                  linear-gradient(180deg, #070b14, #090f1f 35%, #070b14);
-      color:var(--text);
-      min-height:100vh;
-    }
-    .wrap{max-width:var(--max); margin:0 auto; padding:20px}
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(10px);
-      background: rgba(7,11,20,.65);
-      border-bottom:1px solid var(--stroke);
-    }
-    .nav{max-width:var(--max); margin:0 auto; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800}
-    .logo{width:38px; height:38px; border-radius:12px; background:#fff; object-fit:cover}
-    .btn{
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .btn.primary{border:none; background:linear-gradient(135deg, var(--brand), #6b8cff)}
-    .hero{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      box-shadow: var(--shadow);
-      border-radius:24px;
-      padding:18px;
-      margin-top:18px;
-    }
-    h1{margin:0 0 6px; font-size:28px}
-    .sub{margin:0; color:var(--muted); line-height:1.6}
-    .controls{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-top:14px;
-      padding-top:14px;
-      border-top:1px solid var(--stroke);
-      align-items:center;
-    }
-    .field{
-      display:flex; flex-direction:column; gap:6px;
-      min-width: 220px;
-      flex:1;
-    }
-    label{color:var(--muted); font-size:12px}
-    input{
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:14px;
-      outline:none;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin-top:14px;
-      padding-bottom:26px;
-    }
-    .card{
-      border:1px solid var(--stroke);
-      background: rgba(16,27,51,.55);
-      box-shadow: var(--shadow);
-      border-radius:24px;
-      overflow:hidden;
-      display:flex; flex-direction:column;
-    }
-    .img{
-      height:150px;
-      background-size:cover;
-      background-position:center;
-    }
-    .content{padding:14px; display:flex; flex-direction:column; gap:10px; flex:1}
-    .row{display:flex; justify-content:space-between; align-items:center; gap:10px}
-    .name{font-weight:900}
-    .muted{color:var(--muted); font-size:13px}
-    .price{margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; gap:10px}
-    .price b{font-size:18px}
+        header {
+            background-color: #ff6600;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
 
-    /* Modal */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-    .overlay.show{display:flex}
-    .modal{
-      width:min(520px, 100%);
-      border:1px solid var(--stroke);
-      background: #0b1220;
-      border-radius:24px;
-      box-shadow: var(--shadow);
-      padding:16px;
-    }
-    .modal h3{margin:0 0 10px}
-    .modalGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    .modalGrid .field{min-width:auto}
-    .full{grid-column: 1 / -1}
-    .msg{
-      margin-top:10px;
-      padding:10px 12px;
-      border:1px solid var(--stroke);
-      border-radius:14px;
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      display:none;
-    }
-    .msg.show{display:block}
+        nav {
+            background-color: #cc5200;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
 
-    footer{
-      border-top:1px solid var(--stroke);
-      color:var(--muted);
-      padding:18px 0;
-      font-size:13px;
-      margin-top:10px;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
 
-    @media (max-width: 900px){
-      .grid{grid-template-columns: repeat(2, 1fr);}
-    }
-    @media (max-width: 600px){
-      .grid{grid-template-columns: 1fr;}
-      .modalGrid{grid-template-columns:1fr}
-    }
-  </style>
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .brands {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .brand {
+            flex: 1 1 250px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .brand h3 {
+            margin-top: 0;
+            color: #ff6600;
+            text-align: center;
+        }
+
+        .models {
+            background-color: #ffe6cc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .models ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #cc5200;
+            color: white;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+    </style>
 </head>
-
 <body>
-<header>
-  <div class="nav">
-    <div class="brand">
-      <!-- تقدر تبدّل هاد اللوغو ديال EHTP ولا تخليه -->
-      <img class="logo" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89cole_Hassania_des_Travaux_Publics_Logo.png" alt="EHTP Logo">
-      <span>Car Rental Maroc</span>
+
+    <header>
+        <h1>Location de Voitures au Maroc</h1>
+        <p>Trouvez la voiture de vos rêves parmi toutes les marques populaires</p>
+    </header>
+
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#brands">Marques</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <section id="brands">
+            <h2>Nos Marques Disponibles</h2>
+            <div class="brands">
+
+                <div class="brand">
+                    <h3>Toyota</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Corolla</li>
+                            <li>Yaris</li>
+                            <li>Land Cruiser</li>
+                            <li>Rav4</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Renault</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Clio</li>
+                            <li>Megane</li>
+                            <li>Captur</li>
+                            <li>Duster</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Peugeot</h3>
+                    <div class="models">
+                        <ul>
+                            <li>208</li>
+                            <li>308</li>
+                            <li>3008</li>
+                            <li>5008</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Ford</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Fiesta</li>
+                            <li>Focus</li>
+                            <li>Mustang</li>
+                            <li>Explorer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Hyundai</h3>
+                    <div class="models">
+                        <ul>
+                            <li>i10</li>
+                            <li>i20</li>
+                            <li>Tucson</li>
+                            <li>Santa Fe</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Mercedes-Benz</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Classe A</li>
+                            <li>Classe C</li>
+                            <li>GLC</li>
+                            <li>GLE</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>BMW</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Série 1</li>
+                            <li>Série 3</li>
+                            <li>X3</li>
+                            <li>X5</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Nissan</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Micra</li>
+                            <li>Qashqai</li>
+                            <li>X-Trail</li>
+                            <li>Patrol</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Kia</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Picanto</li>
+                            <li>Rio</li>
+                            <li>Sportage</li>
+                            <li>Sorento</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand">
+                    <h3>Volkswagen</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Polo</li>
+                            <li>Golf</li>
+                            <li>Tiguan</li>
+                            <li>Passat</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
-    <button class="btn" onclick="document.getElementById('stays').scrollIntoView({behavior:'smooth'})">Voir les voitures</button>
-  </div>
-</header>
 
-<main class="wrap">
-  <section class="hero">
-    <h1>موقع vitrine ديال كراء السيارات 🚗</h1>
-    <p class="sub">
-      هذا demo ديال TP: فيه <b>HTML</b> + <b>CSS</b> + <b>JavaScript</b>.
-      تقدر تجرّب فلترة بالثمن و Réservation فـ modal (بدون backend).
-    </p>
+    <footer>
+        <p>&copy; 2026 Location de Voitures Maroc. Tous droits réservés.</p>
+    </footer>
 
-    <div class="controls">
-      <div class="field">
-        <label>Prix max (MAD / jour)</label>
-        <input id="maxPrice" type="number" value="500" min="100" step="50" />
-      </div>
-      <button class="btn primary" id="applyBtn">Apply Filter</button>
-      <div class="muted" id="countInfo"></div>
-    </div>
-  </section>
-
-  <section class="grid" id="stays">
-    <div class="muted" id="loading">Loading cars...</div>
-  </section>
-
-  <footer class="wrap">
-    © 2026 — Static Web App Demo (GitHub → Azure Auto Deploy)
-  </footer>
-</main>
-
-<!-- Modal -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="row">
-      <h3 id="modalTitle">Réserver</h3>
-      <button class="btn" id="closeBtn">Close</button>
-    </div>
-
-    <form id="bookingForm">
-      <div class="modalGrid">
-        <div class="field">
-          <label>Nom</label>
-          <input id="name" placeholder="Votre nom" required />
-        </div>
-        <div class="field">
-          <label>Téléphone</label>
-          <input id="phone" placeholder="+212..." required />
-        </div>
-        <div class="field">
-          <label>Durée (jours)</label>
-          <input id="days" type="number" min="1" value="2" required />
-        </div>
-        <div class="field">
-          <label>Date</label>
-          <input id="date" type="date" required />
-        </div>
-
-        <div class="full">
-          <button class="btn primary" type="submit" style="width:100%;">Envoyer la demande</button>
-        </div>
-      </div>
-
-      <div class="msg" id="successMsg">✅ Demande envoyée ! (Demo بدون backend)</div>
-    </form>
-  </div>
-</div>
-
-<script>
-  // 1) Data ديال 3 سيارات (تقدر تبدّلها)
-  const cars = [
-    {
-      id: 1,
-      name: "Dacia Logan",
-      price: 250,
-      img: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=60"
-    },
-    {
-      id: 2,
-      name: "Toyota Corolla",
-      price: 450,
-      img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=60"
-    },
-    {
-      id: 3,
-      name: "Hyundai i20",
-      price: 350,
-      img: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=60"
-    }
-  ];
-
-  // 2) عناصر من الصفحة
-  const stays = document.getElementById("stays");
-  const loading = document.getElementById("loading");
-  const maxPriceInput = document.getElementById("maxPrice");
-  const applyBtn = document.getElementById("applyBtn");
-  const countInfo = document.getElementById("countInfo");
-
-  const overlay = document.getElementById("overlay");
-  const closeBtn = document.getElementById("closeBtn");
-  const modalTitle = document.getElementById("modalTitle");
-  const bookingForm = document.getElementById("bookingForm");
-  const successMsg = document.getElementById("successMsg");
-
-  let selectedCar = null;
-
-  // 3) Render cars فـ الصفحة
-  function renderCars(maxPrice){
-    stays.innerHTML = "";
-
-    const visible = cars.filter(c => c.price <= maxPrice);
-
-    visible.forEach(car => {
-      const card = document.createElement("article");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="img" style="background-image:url('${car.img}')"></div>
-        <div class="content">
-          <div class="row">
-            <div class="name">${car.name}</div>
-            <div class="muted"><b>${car.price}</b> MAD/jour</div>
-          </div>
-          <div class="muted">Assurance incluse • Annulation gratuite (demo)</div>
-          <div class="price">
-            <small class="muted">Disponible اليوم</small>
-            <button class="btn primary" data-id="${car.id}">Réserver</button>
-          </div>
-        </div>
-      `;
-      stays.appendChild(card);
-    });
-
-    // إذا ما بقا حتى سيارة
-    if (visible.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "muted";
-      empty.textContent = "Aucune voiture ne correspond au filtre.";
-      stays.appendChild(empty);
-    }
-
-    countInfo.textContent = `Showing ${visible.length} / ${cars.length} cars`;
-
-    // Bind buttons
-    stays.querySelectorAll("button[data-id]").forEach(btn => {
-      btn.addEventListener("click", () => openModal(Number(btn.dataset.id)));
-    });
-  }
-
-  // 4) Modal open/close
-  function openModal(id){
-    selectedCar = cars.find(c => c.id === id);
-    modalTitle.textContent = `Réserver: ${selectedCar.name} (${selectedCar.price} MAD/jour)`;
-    successMsg.classList.remove("show");
-    overlay.classList.add("show");
-  }
-
-  function closeModal(){
-    overlay.classList.remove("show");
-  }
-
-  closeBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", (e) => {
-    if(e.target === overlay) closeModal();
-  });
-
-  // 5) Filter
-  applyBtn.addEventListener("click", () => {
-    const max = Number(maxPriceInput.value || 0);
-    renderCars(max);
-  });
-
-  // 6) Form submit
-  bookingForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    successMsg.classList.add("show");
-    setTimeout(() => closeModal(), 900);
-  });
-
-  // 7) Initial render
-  if (loading) loading.remove();
-  renderCars(Number(maxPriceInput.value));
-</script>
 </body>
 </html>
